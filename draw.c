@@ -28,7 +28,7 @@ double circle_y(double r, int cy, double theta) {
 void add_circle( struct matrix * points,
 		 double cx, double cy, double cz,
 		 double r, double step ) {
-	printf("checkpoint 1\n");
+	// printf("checkpoint 1\n");
 	double t=0;
 	double tx0, ty0, tx1, ty1;
 	double stop = 1.001;
@@ -39,7 +39,7 @@ void add_circle( struct matrix * points,
 	for (t = step; t <= stop; t+=step) {
 		tx1 = circle_x(r,cx,t);
     ty1 = circle_y(r,cy,t);
-		printf("adding edge\n");
+		// printf("adding edge\n");
     add_edge(points, tx0, ty0, cz, tx1, ty1, cz);
     tx0 = tx1;
     ty0 = ty1;
@@ -70,6 +70,53 @@ void add_curve( struct matrix *points,
 		double x2, double y2,
 		double x3, double y3,
 		double step, int type ) {
+	double t = 0;
+	double tx0, ty0, tx1, ty1;
+	double stop = 1.0001;
+
+	if(!type){          //HERMITE
+		struct matrix * coefx;
+		coefx = generate_curve_coefs(x0,x1,x2,x3,0);
+		// printf("coefx\n");
+		// print_matrix(coefx);
+		struct matrix * coefy;
+		coefy = generate_curve_coefs(y0,y1,y2,y3,0);
+		// printf("coefy\n");
+		// print_matrix(coefy);
+		// printf("%lf\n", coefx->m[3][0]);
+		tx0 = (coefx->m[0][0]*pow(t,3)) + (coefx->m[1][0]*pow(t,2)) + (coefx->m[2][0]*t) + (coefx->m[3][0]);
+		ty0 = (coefy->m[0][0]*pow(t,3)) + (coefy->m[1][0]*pow(t,2)) + (coefy->m[2][0]*t) + (coefy->m[3][0]);
+
+		for (t = step; t <= stop; t+=step) {
+			tx1 = ((coefx->m[0][0])*pow(t,3)) + ((coefx->m[1][0])*pow(t,2)) + ((coefx->m[2][0])*t) + (coefx->m[3][0]);
+			printf("tx1 %lf\n",tx1);
+			ty1 = (coefy->m[0][0]*pow(t,3)) + (coefy->m[1][0]*pow(t,2)) + (coefy->m[2][0]*t) + (coefy->m[3][0]);
+			printf("ty1 %lf\n",ty1);
+			// printf("adding edge\n");
+	    add_edge(points, tx0, ty0, 0, tx1, ty1, 0);
+	    tx0 = tx1;
+	    ty0 = ty1;
+		}
+	}
+	else{
+		struct matrix * coefx;
+		struct matrix * coefy;
+		coefx = generate_curve_coefs(x0,x1,x2,x3,1);
+		coefy = generate_curve_coefs(y0,y1,y2,y3,1);
+		tx0 = (coefx->m[0][0]*pow(t,3)) + (coefx->m[1][0]*pow(t,2)) + (coefx->m[2][0]*t) + (coefx->m[3][0]);
+		ty0 = (coefy->m[0][0]*pow(t,3)) + (coefy->m[1][0]*pow(t,2)) + (coefy->m[2][0]*t) + (coefy->m[3][0]);
+
+		for (t = step; t <= stop; t+=step) {
+			tx1 = ((coefx->m[0][0])*pow(t,3)) + ((coefx->m[1][0])*pow(t,2)) + ((coefx->m[2][0])*t) + (coefx->m[3][0]);
+			printf("tx1 %lf\n",tx1);
+			ty1 = (coefy->m[0][0]*pow(t,3)) + (coefy->m[1][0]*pow(t,2)) + (coefy->m[2][0]*t) + (coefy->m[3][0]);
+			printf("ty1 %lf\n",ty1);
+			// printf("adding edge\n");
+	    add_edge(points, tx0, ty0, 0, tx1, ty1, 0);
+	    tx0 = tx1;
+	    ty0 = ty1;
+		}
+	}
 }
 
 

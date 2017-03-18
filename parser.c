@@ -114,6 +114,38 @@ void parse_file ( char * filename,
       add_circle(edges, cx, cy, cz, r, 0.001);
     }
 
+    else if (strncmp(line, "hermite", strlen(line)) == 0){
+      fgets(line, sizeof(line), f);
+      double x0;
+      double y0;
+      double x1;
+      double y1;
+      double rx0;
+      double ry0;
+      double rx1;
+      double ry1;
+
+      sscanf(line, "%lf %lf %lf %lf %lf %lf %lf %lf",
+        &x0, &y0, &x1, &y1, &rx0, &ry0, &rx1, &ry1);
+      add_curve(edges, x0, y0, x1, y1, rx0, ry0, rx1, ry1, 0.1, 0);
+    }
+
+    else if (strncmp(line, "bezier", strlen(line)) == 0){
+      fgets(line, sizeof(line), f);
+      double x0;
+      double y0;
+      double x1;
+      double y1;
+      double x2;
+      double y2;
+      double x3;
+      double y3;
+
+      sscanf(line, "%lf %lf %lf %lf %lf %lf %lf %lf",
+        &x0, &y0, &x1, &y1, &x2, &y2, &x3, &y3);
+      add_curve(edges, x0, y0, x1, y1, x2, y2, x3, y3, 0.001, 1);
+    }
+
     else if ( strncmp(line, "scale", strlen(line)) == 0 ) {
       fgets(line, sizeof(line), f);
       //printf("SCALE\t%s", line);

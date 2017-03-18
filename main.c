@@ -30,7 +30,8 @@ int main(int argc, char **argv) {
   else
     parse_file( "stdin", transform, edges, s );
 
-  
+
   free_matrix( edges );
   free_matrix( transform );
-}  
+  // make_hermite();
+}
