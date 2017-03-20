@@ -76,14 +76,9 @@ void add_curve( struct matrix *points,
 
 	if(!type){          //HERMITE
 		struct matrix * coefx;
-		coefx = generate_curve_coefs(x0,x1,x2,x3,0);
-		// printf("coefx\n");
-		// print_matrix(coefx);
 		struct matrix * coefy;
+		coefx = generate_curve_coefs(x0,x1,x2,x3,0);
 		coefy = generate_curve_coefs(y0,y1,y2,y3,0);
-		// printf("coefy\n");
-		// print_matrix(coefy);
-		// printf("%lf\n", coefx->m[3][0]);
 		tx0 = (coefx->m[0][0]*pow(t,3)) + (coefx->m[1][0]*pow(t,2)) + (coefx->m[2][0]*t) + (coefx->m[3][0]);
 		ty0 = (coefy->m[0][0]*pow(t,3)) + (coefy->m[1][0]*pow(t,2)) + (coefy->m[2][0]*t) + (coefy->m[3][0]);
 
@@ -92,7 +87,6 @@ void add_curve( struct matrix *points,
 			printf("tx1 %lf\n",tx1);
 			ty1 = (coefy->m[0][0]*pow(t,3)) + (coefy->m[1][0]*pow(t,2)) + (coefy->m[2][0]*t) + (coefy->m[3][0]);
 			printf("ty1 %lf\n",ty1);
-			// printf("adding edge\n");
 	    add_edge(points, tx0, ty0, 0, tx1, ty1, 0);
 	    tx0 = tx1;
 	    ty0 = ty1;
@@ -111,7 +105,6 @@ void add_curve( struct matrix *points,
 			printf("tx1 %lf\n",tx1);
 			ty1 = (coefy->m[0][0]*pow(t,3)) + (coefy->m[1][0]*pow(t,2)) + (coefy->m[2][0]*t) + (coefy->m[3][0]);
 			printf("ty1 %lf\n",ty1);
-			// printf("adding edge\n");
 	    add_edge(points, tx0, ty0, 0, tx1, ty1, 0);
 	    tx0 = tx1;
 	    ty0 = ty1;

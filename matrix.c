@@ -37,13 +37,13 @@ struct matrix * make_bezier() {
 struct matrix * make_hermite() {
   struct matrix *hermite = new_matrix(4,4);
   matrix_init(hermite);
-  hermite->m[0][0] = -2;
+  hermite->m[0][0] = 2;
   hermite->m[0][1] = -2;
   hermite->m[0][2] = 1;
   hermite->m[0][3] = 1;
   hermite->m[1][0] = -3;
   hermite->m[1][1] = 3;
-  hermite->m[1][2] = 2;
+  hermite->m[1][2] = -2;
   hermite->m[1][3] = -1;
   hermite->m[2][2] = 1;
   hermite->m[3][0] = 1;
@@ -80,10 +80,6 @@ struct matrix * generate_curve_coefs( double p1, double p2,
     struct matrix * hmatrix;
     hmatrix = make_hermite();
     matrix_mult(hmatrix,res);
-    // printf("hermite matrix\n");
-    // print_matrix(hmatrix);
-    // printf("result\n");
-    // print_matrix(res);
     return res;
   }
   else{

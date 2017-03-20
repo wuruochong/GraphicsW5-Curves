@@ -127,7 +127,7 @@ void parse_file ( char * filename,
 
       sscanf(line, "%lf %lf %lf %lf %lf %lf %lf %lf",
         &x0, &y0, &x1, &y1, &rx0, &ry0, &rx1, &ry1);
-      add_curve(edges, x0, y0, x1, y1, rx0, ry0, rx1, ry1, 0.1, 0);
+      add_curve(edges, x0, y0, x1, y1, rx0, ry0, rx1, ry1, 0.001, 0);
     }
 
     else if (strncmp(line, "bezier", strlen(line)) == 0){
